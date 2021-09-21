@@ -1,5 +1,4 @@
 #!/bin/bash
 
-
-ping -w 1 $1 > /dev/null
+ping -I $1 -w 1 $2 > /dev/null
 echo $?
