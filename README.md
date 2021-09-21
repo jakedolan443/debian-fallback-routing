@@ -6,3 +6,8 @@ Debian provides a wiki on [bonding](https://wiki.debian.org/Bonding) interfaces,
 The system I implemented uses an ICMP ping every 30 seconds to the default gateway to determine if the current network interface can still access it - if it can't, the program switches the interface. This cycle repeats with multiple interfaces, and the primary network interface is reset on reboot.
 
 This was made for an inner division of my LAN, where I have a faster, but unreliable, WiFi connection (~150Mbit/s) and a reliable, but slow, ethernet connection (100Mbit/s). This meant I could make use of the faster WiFI interface, and when it went down (as it frequently did), I could switch over to the ethernet interface without any trouble.
+
+Interfaces with default gateways should be placed into `service.sh` file.
+
+Ran as a service file (contains infinite loop), run `./service.sh`.
+
