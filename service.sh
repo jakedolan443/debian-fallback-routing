@@ -1,11 +1,10 @@
-
 #!/bin/bash
 
 
-INTERFACES=("enp5s0,10.0.245.1" "lo,127.0.0.1")
+INTERFACES=("eth0,192.168.0.1" "wlx1cbfce395c55,192.168.0.1")
 # interface,defaultgw
 
-PING_ADDRESS=192.168.5.1
+PING_ADDRESS=192.168.0.1
 # ideally the next hop in routing
 
 COOLDOWN=30
@@ -14,7 +13,8 @@ DIR="$(dirname "$(realpath "$0")")"
 
 while true
 do 
-    if [[ $($DIR/check_up.sh $PING_ADDRESS) != 0 ]]; then
+    CURRENT_INTERFACE=$(echo $(ip -4 route show default) | cut -d " " -f 5)
+    if [[ $($DIR/check_up.sh $CURRENT_INTERFACE $PING_ADDRESS) != 0 ]]; then
       CURRENT_INTERFACE=$(echo $(ip -4 route show default) | cut -d " " -f 5)
       for i in "${!INTERFACES[@]}"
       do
